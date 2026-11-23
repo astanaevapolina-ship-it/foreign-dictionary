@@ -21,7 +21,7 @@
 ## Инструкция по запуску
 1. Клонируйте репозиторий из ветки `develop`:
    ```bash
-   git clone -b develop <URL_репозитория>
+   git clone -b develop https://github.com/astanaevapolina-ship-it/foreign-dictionary.git
    cd foreign-dictionary
    ```
 2. Установите зависимости:
