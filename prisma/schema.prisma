@@ -1,0 +1,26 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model Category {
+  id    Int    @id @default(autoincrement())
+  name  String @unique
+  words Word[]
+}
+
+model Word {
+  id            Int      @id @default(autoincrement())
+  term          String
+  transcription String?
+  translation   String
+  example       String?
+  status        String   @default("NEW")
+  categoryId    Int
+  category      Category @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+  createdAt     DateTime @default(now())
+}
