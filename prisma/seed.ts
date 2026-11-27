@@ -3,7 +3,7 @@ import { PrismaClient } from '@prisma/client';
 const prisma = new PrismaClient();
 
 async function main() {
-  const categories = ['IT и разработка', 'Путешествия', 'Повседневное общение', 'Бизнес'];
+  const categories = ['IT и разработка', 'Путешествия', 'Повседневное общение', 'Бизнес', 'Еда'];
 
   for (const name of categories) {
     await prisma.category.upsert({
@@ -17,6 +17,7 @@ async function main() {
   const travelCat = await prisma.category.findUniqueOrThrow({ where: { name: 'Путешествия' } });
   const dailyCat = await prisma.category.findUniqueOrThrow({ where: { name: 'Повседневное общение' } });
   const bizCat = await prisma.category.findUniqueOrThrow({ where: { name: 'Бизнес' } });
+  const foodCat = await prisma.category.findUniqueOrThrow({ where: { name: 'Еда' } });
 
   await prisma.word.deleteMany();
 
@@ -34,10 +35,10 @@ async function main() {
       { term: 'Nevertheless', transcription: '[ˌnevəðəˈles]', translation: 'Тем не менее', example: 'It was raining; nevertheless, we went out.', status: 'NEW', categoryId: dailyCat.id },
       { term: 'Deadline', transcription: '[ˈdedlaɪn]', translation: 'Крайний срок', example: 'We must meet the project deadline.', status: 'LEARNED', categoryId: bizCat.id },
       { term: 'Negotiate', transcription: '[nɪˈɡəʊʃieɪt]', translation: 'Вести переговоры', example: 'They plan to negotiate new terms.', status: 'NEW', categoryId: bizCat.id },
+      { term: 'Delicious', transcription: '[dɪˈlɪʃəs]', translation: 'Вкусный', example: 'This homemade cake is delicious.', status: 'LEARNED', categoryId: foodCat.id },
+      { term: 'Ingredients', transcription: '[ɪnˈɡriːdiənts]', translation: 'Ингредиенты, состав', example: 'Mix all the ingredients in a bowl.', status: 'NEW', categoryId: foodCat.id },
     ],
   });
-
-  console.log('База данных успешно заполнена 12 словами!');
 }
 
 main()
