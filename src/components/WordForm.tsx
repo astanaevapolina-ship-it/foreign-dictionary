@@ -59,8 +59,7 @@ export default function WordForm({
       return;
     }
 
-    router.push('/');
-    router.refresh();
+    window.location.href = '/';
   }
 
   return (
