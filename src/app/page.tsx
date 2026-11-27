@@ -1,8 +1,14 @@
+import type { Metadata } from 'next';
 import { cookies } from 'next/headers';
 import { prisma } from '@/lib/prisma';
 import DictionaryClient from '@/components/DictionaryClient';
 
 export const dynamic = 'force-dynamic';
+
+export const metadata: Metadata = {
+  title: 'LexiNote — Список иностранных слов и прогресс изучения',
+  description: 'Просмотр, поиск и фильтрация иностранных слов по категориям и статусу изученности.',
+};
 
 export default async function HomePage() {
   const cookieStore = await cookies();

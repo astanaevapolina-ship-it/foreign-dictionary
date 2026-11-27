@@ -36,7 +36,11 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
-# SQLite: исключить остальные БД, но разрешить учебную БД проекта
+# IDE
+/.idea
+/.vscode
+
+# SQLite: исключить временные БД, но разрешить учебную БД проекта
 *.db
 *.db-journal
 !prisma/dev.db

@@ -20,7 +20,10 @@ export async function PATCH(
 
     const parsed = wordSchema.safeParse(body);
     if (!parsed.success) {
-      return NextResponse.json({ error: parsed.error.flatten() }, { status: 400 });
+      return NextResponse.json(
+        { error: parsed.error.issues[0]?.message || 'Ошибка валидации данных' },
+        { status: 400 }
+      );
     }
 
     const updated = await prisma.word.update({

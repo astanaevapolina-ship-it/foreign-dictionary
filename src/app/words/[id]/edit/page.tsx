@@ -1,8 +1,12 @@
+import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { prisma } from '@/lib/prisma';
 import WordForm from '@/components/WordForm';
 
-export const dynamic = 'force-dynamic';
+export const metadata: Metadata = {
+  title: 'Редактирование слова — LexiNote Словарь слов',
+  description: 'Изменение перевода, примера использования, категории или статуса изученности слова.',
+};
 
 export default async function EditWordPage({
   params,
@@ -10,11 +14,14 @@ export default async function EditWordPage({
   params: Promise<{ id: string }>;
 }) {
   const { id } = await params;
-  const wordId = Number(id);
-  if (Number.isNaN(wordId)) notFound();
+  const numericId = Number(id);
+
+  if (Number.isNaN(numericId)) {
+    notFound();
+  }
 
   const [word, categories] = await Promise.all([
-    prisma.word.findUnique({ where: { id: wordId } }),
+    prisma.word.findUnique({ where: { id: numericId } }),
     prisma.category.findMany({ orderBy: { name: 'asc' } }),
   ]);
 

@@ -29,7 +29,10 @@ export async function POST(request: Request) {
     const parsed = wordSchema.safeParse(body);
 
     if (!parsed.success) {
-      return NextResponse.json({ error: parsed.error.flatten() }, { status: 400 });
+      return NextResponse.json(
+        { error: parsed.error.issues[0]?.message || 'Ошибка валидации данных' },
+        { status: 400 }
+      );
     }
 
     const word = await prisma.word.create({ data: parsed.data });
